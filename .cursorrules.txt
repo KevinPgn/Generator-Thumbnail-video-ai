@@ -1,0 +1,7 @@
+Propriété site: site en rouge et noir, utilisation de react rough notation
+
+Projet : Generation de Thumnbail pour vidéo youtube ou twitter etc… grace a l’IA
+
+Génère jusqua 4 images 
+
+Lutilisateur pourra le faire uniquement 2 fois / 2 utilisations

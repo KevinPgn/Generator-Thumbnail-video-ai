@@ -15,11 +15,13 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  // Optional for WebAuthn support
-  Authenticator Authenticator[]
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  
+  credits       Int            @default(2)    // Free credits for new users
+  thumbnails    Thumbnail[]    // Relation to generated thumbnails
+  subscriptions Subscription[]
+  
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
  
 model Account {
@@ -54,26 +56,39 @@ model Session {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
  
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
- 
-  @@unique([identifier, token])
+model Thumbnail {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  prompt      String    // Description or prompt for the thumbnail
+  status      String    @default("pending") // pending, completed, failed
+  
+  // Individual image URLs instead of array
+  image1      String?
+  image2      String?
+  image3      String?
+  image4      String?
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
  
-// Optional for WebAuthn support
-model Authenticator {
-  id                   String  @id @default(cuid())
-  credentialID         String  @unique
-  userId               String
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Subscription {
+  id                 String    @id @default(cuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  stripeCustomerId  String?   @unique
+  stripePriceId     String?
+  stripeSubscriptionId String? @unique
+  
+  status            String    // active, canceled, past_due
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 }
