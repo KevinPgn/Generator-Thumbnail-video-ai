@@ -5,3 +5,5 @@ Projet : Generation de Thumnbail pour vidéo youtube ou twitter etc… grace a l
 Génère jusqua 4 images 
 
 Lutilisateur pourra le faire uniquement 2 fois / 2 utilisations
+
+Ceci est un SaaS, respecte les bonnes pratiques de SaaS et surtout les couleurs que j'ai choisies dans propriété site
