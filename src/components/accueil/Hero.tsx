@@ -119,7 +119,7 @@ export const Hero = () => {
         {/* CTA Buttons */}
         <div className="flex gap-4 justify-center">
           <a
-            href="/generate"
+            href="/dashboard"
             className="px-8 py-4 bg-black text-white rounded-lg hover:bg-neutral-800 transition-all transform hover:scale-105 hover:shadow-lg"
           >
             Get Started
